@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ally and Ludjero Home Base</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --bg2: #f4f7fb;
+  --bg3: #e8eef6;
+  --text: #1a2030;
+  --text2: #4a5568;
+  --text3: #8a95a8;
+  --border: #d0d8e8;
+  --blue: #378ADD;
+  --blue-bg: #E6F1FB;
+  --blue-light: #B5D4F4;
+  --blue-dark: #0C447C;
+  --teal: #1D9E75;
+  --teal-bg: #E1F5EE;
+  --teal-light: #9FE1CB;
+  --teal-dark: #085041;
+  --green: #0F6E56;
+  --red: #A32D2D;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg3); color: var(--text); min-height: 100vh; }
+.app { max-width: 920px; margin: 0 auto; padding: 24px 16px 60px; }
+.header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.header h1 { font-size: 22px; font-weight: 600; color: var(--text); }
+.header p { font-size: 13px; color: var(--text2); margin-top: 3px; }
+.header-date { font-size: 13px; color: var(--text3); white-space: nowrap; margin-top: 4px; }
+.api-bar { background: #FFF8ED; border: 1px solid #F5C85A; border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 20px; }
+.api-bar p { font-size: 13px; color: #7A5200; margin-bottom: 8px; line-height: 1.5; }
+.api-bar a { color: #7A5200; font-weight: 600; }
+.api-row { display: flex; gap: 8px; align-items: center; }
+.api-row input { flex: 1; padding: 7px 10px; border-radius: var(--radius-sm); border: 1px solid #F5C85A; font-size: 13px; font-family: inherit; background: white; color: #333; }
+.key-status { font-size: 12px; color: #7A5200; margin-top: 5px; }
+.nav { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+.tab { padding: 6px 14px; border-radius: 20px; font-size: 13px; cursor: pointer; border: 1px solid var(--border); color: var(--text2); background: var(--bg); transition: all 0.15s; font-family: inherit; }
+.tab:hover { background: var(--bg2); }
+.tab.active { background: var(--blue-bg); color: var(--blue-dark); border-color: var(--blue-light); font-weight: 500; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.grid1 { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 12px; }
+.col { display: flex; flex-direction: column; gap: 12px; }
+.card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; }
+.card-title { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 14px; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+.av-a { background: var(--blue-light); color: var(--blue-dark); }
+.av-b { background: var(--teal-light); color: var(--teal-dark); }
+.prow { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.swrap { flex: 1; }
+.slbl { display: flex; justify-content: space-between; font-size: 11px; color: var(--text3); margin-bottom: 3px; }
+input[type="range"] { width: 100%; accent-color: var(--blue); cursor: pointer; }
+input[type="text"], input[type="number"], input[type="date"], input[type="password"], select, textarea {
+  padding: 7px 10px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg2);
+  color: var(--text); font-size: 13px; font-family: inherit; outline: none;
+}
+input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, input[type="password"]:focus, select:focus { border-color: var(--blue); }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+.tag { padding: 4px 10px; border-radius: 20px; font-size: 12px; cursor: pointer; border: 1px solid var(--border); color: var(--text2); background: var(--bg2); transition: all 0.15s; user-select: none; }
+.tag:hover { border-color: var(--blue-light); }
+.tag.on { background: var(--blue-bg); color: var(--blue-dark); border-color: var(--blue-light); }
+.btn { display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--bg); color: var(--text); font-size: 13px; cursor: pointer; font-family: inherit; transition: background 0.15s; }
+.btn:hover { background: var(--bg2); }
+.btn-blue { background: var(--blue-bg); color: var(--blue-dark); border-color: var(--blue-light); }
+.btn-blue:hover { background: var(--blue-light); }
+.btn-teal { background: var(--teal-bg); color: var(--teal-dark); border-color: var(--teal-light); }
+.btn-teal:hover { background: var(--teal-light); }
+.rowin { display: flex; gap: 7px; margin-bottom: 10px; align-items: center; }
+.rowin input, .rowin select { flex: 1; }
+.list-item { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; background: var(--bg2); border-radius: var(--radius-sm); font-size: 13px; color: var(--text); margin-bottom: 6px; line-height: 1.5; }
+.dot-a { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 4px; }
+.dot-b { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); flex-shrink: 0; margin-top: 4px; }
+.dot-n { width: 8px; height: 8px; border-radius: 50%; background: var(--border); flex-shrink: 0; margin-top: 4px; }
+.meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.divider { height: 1px; background: var(--border); margin: 12px 0; }
+.pulse-row { display: flex; gap: 8px; margin-top: 10px; }
+.pulse-item { flex: 1; text-align: center; padding: 10px 4px; background: var(--bg2); border-radius: var(--radius-sm); }
+.pulse-num { font-size: 22px; font-weight: 600; color: var(--text); }
+.pulse-lbl { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.streak-dots { display: flex; gap: 5px; margin-top: 8px; }
+.sd { width: 11px; height: 11px; border-radius: 50%; background: var(--border); }
+.sd.on { background: var(--blue); }
+.accent-blue { font-size: 14px; color: var(--text); line-height: 1.65; padding: 12px 14px; background: var(--bg2); border-radius: var(--radius-sm); margin-bottom: 10px; border-left: 3px solid var(--blue); }
+.accent-teal { font-size: 14px; color: var(--text); line-height: 1.65; padding: 12px 14px; background: var(--bg2); border-radius: var(--radius-sm); margin-bottom: 10px; border-left: 3px solid var(--teal); }
+.ai-box { background: var(--bg2); border-radius: var(--radius-sm); padding: 13px; font-size: 14px; color: var(--text); line-height: 1.65; margin-top: 10px; display: none; }
+.ai-loading { color: var(--text3); font-style: italic; }
+.goal-row { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: var(--bg2); border-radius: var(--radius-sm); margin-bottom: 6px; }
+.goal-bar-wrap { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.goal-bar { height: 100%; background: var(--blue); border-radius: 3px; }
+.goal-pct { font-size: 11px; color: var(--text3); min-width: 30px; text-align: right; }
+.goal-name { font-size: 13px; color: var(--text); min-width: 120px; }
+.ms { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: var(--radius-sm); margin-bottom: 6px; background: var(--bg2); }
+.ms-circle { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+.ms-done { background: var(--teal-bg); color: var(--teal-dark); }
+.ms-active { background: var(--blue-bg); color: var(--blue-dark); }
+.ms-todo { background: var(--border); color: var(--text3); }
+.ms-text { font-size: 13px; color: var(--text); }
+.fin-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.fin-row:last-child { border-bottom: none; }
+.fin-lbl { color: var(--text2); }
+.fin-val { font-weight: 600; color: var(--text); }
+.fin-pos { color: var(--green); }
+.fin-neg { color: var(--red); }
+.btns { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 8px; }
+section { display: none; }
+section.active { display: block; }
+@media (max-width: 600px) {
+  .grid2 { grid-template-columns: 1fr; }
+  .nav { gap: 4px; }
+  .tab { font-size: 12px; padding: 5px 10px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="header">
+    <div>
+      <h1>Ally &amp; Ludjero's home base</h1>
+      <p>Your daily space to connect</p>
+    </div>
+    <div class="header-date" id="the-date"></div>
+  </div>
+
+  <div class="api-bar">
+    <p>AI features need a free Anthropic API key. Get one at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> then paste it below. It saves in your browser.</p>
+    <div class="api-row">
+      <input type="password" id="api-key-input" placeholder="Paste your API key here (sk-ant-...)">
+      <button class="btn btn-blue" onclick="saveKey()">Save key</button>
+    </div>
+    <div class="key-status" id="key-status"></div>
+  </div>
+
+  <div class="nav">
+    <button class="tab active" onclick="showSection('daily', this)">Daily</button>
+    <button class="tab" onclick="showSection('weekly', this)">Weekly</button>
+    <button class="tab" onclick="showSection('goals', this)">Goals</button>
+    <button class="tab" onclick="showSection('dates', this)">Date nights</button>
+    <button class="tab" onclick="showSection('finance', this)">Finances</button>
+    <button class="tab" onclick="showSection('mortgage', this)">Mortgage</button>
+    <button class="tab" onclick="showSection('review', this)">Monthly review</button>
+  </div>
+
+  <!-- DAILY -->
+  <section id="sec-daily" class="active">
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Daily check-in</div>
+        <div class="prow">
+          <div class="avatar av-a">AL</div>
+          <div class="swrap">
+            <div class="slbl"><span>Ally</span><span id="val-a">7</span></div>
+            <input type="range" min="1" max="10" value="7" id="sl-a" oninput="updateMood()">
+          </div>
+        </div>
+        <div class="prow">
+          <div class="avatar av-b">LU</div>
+          <div class="swrap">
+            <div class="slbl"><span>Ludjero</span><span id="val-b">7</span></div>
+            <input type="range" min="1" max="10" value="7" id="sl-b" oninput="updateMood()">
+          </div>
+        </div>
+        <div class="meta" style="margin-top:10px;margin-bottom:6px;">How are you feeling today?</div>
+        <div class="tags">
+          <span class="tag" onclick="this.classList.toggle('on')">connected</span>
+          <span class="tag" onclick="this.classList.toggle('on')">tired</span>
+          <span class="tag" onclick="this.classList.toggle('on')">stressed</span>
+          <span class="tag" onclick="this.classList.toggle('on')">grateful</span>
+          <span class="tag" onclick="this.classList.toggle('on')">playful</span>
+          <span class="tag" onclick="this.classList.toggle('on')">distant</span>
+          <span class="tag" onclick="this.classList.toggle('on')">loved</span>
+          <span class="tag" onclick="this.classList.toggle('on')">anxious</span>
+          <span class="tag" onclick="this.classList.toggle('on')">hopeful</span>
+          <span class="tag" onclick="this.classList.toggle('on')">overwhelmed</span>
+        </div>
+        <div style="margin-top:14px;">
+          <button class="btn btn-blue" onclick="runAI('daily')">Get tonight's prompt</button>
+        </div>
+        <div class="ai-box" id="ai-daily"></div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-title">Streak &amp; pulse</div>
+          <div class="streak-dots" id="streak-dots"></div>
+          <div class="meta" style="margin-top:6px;">5 days in a row</div>
+          <div class="pulse-row">
+            <div class="pulse-item"><div class="pulse-num" id="avg-m">7</div><div class="pulse-lbl">avg mood</div></div>
+            <div class="pulse-item"><div class="pulse-num" id="grat-count">3</div><div class="pulse-lbl">gratitudes</div></div>
+            <div class="pulse-item"><div class="pulse-num" id="win-count">2</div><div class="pulse-lbl">wins</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Today's intention</div>
+          <div class="accent-teal" id="intention-text">How can we each show up a little better for each other today — even in one small way?</div>
+          <button class="btn" onclick="nextIntention()">New intention</button>
+        </div>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Gratitude log</div>
+        <div class="rowin">
+          <input type="text" id="grat-in" placeholder="I appreciate that you...">
+          <select id="grat-who" style="max-width:100px;"><option value="a">Ally</option><option value="b">Ludjero</option></select>
+          <button class="btn btn-blue" onclick="addGrat()">Add</button>
+        </div>
+        <div id="grat-list">
+          <div class="list-item"><div class="dot-a"></div><div><div>Made coffee before I woke up</div><div class="meta">Ally &middot; today</div></div></div>
+          <div class="list-item"><div class="dot-b"></div><div><div>Listened when I was venting about work</div><div class="meta">Ludjero &middot; yesterday</div></div></div>
+          <div class="list-item"><div class="dot-a"></div><div><div>Remembered to call the landlord</div><div class="meta">Ally &middot; 2 days ago</div></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">This week's wins</div>
+        <div class="rowin">
+          <input type="text" id="win-in" placeholder="A good moment together...">
+          <button class="btn btn-teal" onclick="addWin()">+</button>
+        </div>
+        <div id="win-list">
+          <div class="list-item"><div class="dot-n"></div>Cooked dinner together on Tuesday</div>
+          <div class="list-item"><div class="dot-n"></div>Morning walk on Sunday</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEEKLY -->
+  <section id="sec-weekly">
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Weekly reflection questions</div>
+        <div class="accent-blue" id="wq-text">What's one thing your partner did this week that made you feel seen?</div>
+        <div class="btns">
+          <button class="btn" onclick="nextWQ()">Next question</button>
+          <button class="btn btn-blue" onclick="runAI('weekly')">Reflect together</button>
+        </div>
+        <div class="ai-box" id="ai-weekly"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Weekly intention</div>
+        <div class="accent-teal" id="wint-text">How can we be a better team this week — even in one small way?</div>
+        <button class="btn" onclick="nextWInt()">New intention</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GOALS -->
+  <section id="sec-goals">
+    <div class="card">
+      <div class="card-title">Shared goals</div>
+      <div class="rowin">
+        <input type="text" id="goal-name" placeholder="Goal name...">
+        <input type="number" id="goal-pct-in" placeholder="%" min="0" max="100" style="max-width:70px;">
+        <button class="btn btn-blue" onclick="addGoal()">Add goal</button>
+      </div>
+      <div id="goal-list">
+        <div class="goal-row"><div class="goal-name">Emergency fund</div><div class="goal-bar-wrap"><div class="goal-bar" style="width:65%"></div></div><div class="goal-pct">65%</div></div>
+        <div class="goal-row"><div class="goal-name">Buy a home</div><div class="goal-bar-wrap"><div class="goal-bar" style="width:30%"></div></div><div class="goal-pct">30%</div></div>
+        <div class="goal-row"><div class="goal-name">Travel fund</div><div class="goal-bar-wrap"><div class="goal-bar" style="width:50%"></div></div><div class="goal-pct">50%</div></div>
+        <div class="goal-row"><div class="goal-name">New furniture</div><div class="goal-bar-wrap"><div class="goal-bar" style="width:20%"></div></div><div class="goal-pct">20%</div></div>
+      </div>
+      <div style="margin-top:14px;">
+        <button class="btn btn-blue" onclick="runAI('goals')">Get goal advice</button>
+      </div>
+      <div class="ai-box" id="ai-goals"></div>
+    </div>
+  </section>
+
+  <!-- DATE NIGHTS -->
+  <section id="sec-dates">
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Next date night</div>
+        <div class="rowin">
+          <input type="text" id="date-loc" placeholder="Location or vibe...">
+          <input type="date" id="date-when" style="max-width:150px;">
+        </div>
+        <div class="accent-teal" id="date-idea">No date planned yet. Tap "Inspire me" for ideas!</div>
+        <div class="btns">
+          <button class="btn btn-teal" onclick="runAI('date')">Inspire me</button>
+          <button class="btn btn-blue" onclick="planDate()">Save this date</button>
+        </div>
+        <div id="saved-dates" style="margin-top:8px;"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Date night bucket list</div>
+        <div class="rowin">
+          <input type="text" id="bucket-in" placeholder="An idea for later...">
+          <button class="btn btn-teal" onclick="addBucket()">+</button>
+        </div>
+        <div id="bucket-list">
+          <div class="list-item"><div class="dot-b"></div>Weekend cabin getaway</div>
+          <div class="list-item"><div class="dot-a"></div>Cooking class together</div>
+          <div class="list-item"><div class="dot-b"></div>Sunset picnic in the park</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINANCES -->
+  <section id="sec-finance">
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Monthly snapshot</div>
+        <div class="fin-row"><span class="fin-lbl">Combined income</span><span class="fin-val" id="fin-income">--</span></div>
+        <div class="fin-row"><span class="fin-lbl">Total expenses</span><span class="fin-val fin-neg" id="fin-exp">--</span></div>
+        <div class="fin-row"><span class="fin-lbl">Savings this month</span><span class="fin-val" id="fin-save">--</span></div>
+        <div class="divider"></div>
+        <div class="rowin">
+          <input type="number" id="f-income" placeholder="Income $">
+          <input type="number" id="f-exp" placeholder="Expenses $">
+          <button class="btn btn-blue" onclick="calcFin()">Update</button>
+        </div>
+        <button class="btn btn-blue" onclick="runAI('finance')">Get check-in prompt</button>
+        <div class="ai-box" id="ai-finance"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Money conversation starters</div>
+        <div class="accent-blue" id="fin-q-text">Are we on the same page about our savings goals this month?</div>
+        <button class="btn" onclick="nextFinQ()">Next question</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MORTGAGE -->
+  <section id="sec-mortgage">
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Mortgage process tracker</div>
+        <div id="mortgage-steps">
+          <div class="ms"><div class="ms-circle ms-done">&#10003;</div><div><div class="ms-text">Get pre-approved</div><div class="meta">Completed</div></div></div>
+          <div class="ms"><div class="ms-circle ms-active">2</div><div><div class="ms-text">House hunting</div><div class="meta">In progress</div></div></div>
+          <div class="ms"><div class="ms-circle ms-todo">3</div><div><div class="ms-text">Make an offer</div><div class="meta">Upcoming</div></div></div>
+          <div class="ms"><div class="ms-circle ms-todo">4</div><div><div class="ms-text">Home inspection</div><div class="meta">Upcoming</div></div></div>
+          <div class="ms"><div class="ms-circle ms-todo">5</div><div><div class="ms-text">Finalize mortgage</div><div class="meta">Upcoming</div></div></div>
+          <div class="ms"><div class="ms-circle ms-todo">6</div><div><div class="ms-text">Closing day</div><div class="meta">Upcoming</div></div></div>
+        </div>
+        <div style="margin-top:12px;">
+          <button class="btn btn-teal" onclick="advanceMortgage()">Mark next step done</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Mortgage notes and tasks</div>
+        <div class="rowin">
+          <input type="text" id="mtg-in" placeholder="Task or note...">
+          <button class="btn btn-teal" onclick="addMtgNote()">+</button>
+        </div>
+        <div id="mtg-notes">
+          <div class="list-item"><div class="dot-b"></div>Compare 3 lenders by end of month</div>
+          <div class="list-item"><div class="dot-a"></div>Gather 2 years of tax returns</div>
+          <div class="list-item"><div class="dot-b"></div>Research neighborhoods with good schools</div>
+        </div>
+        <div style="margin-top:12px;">
+          <button class="btn btn-blue" onclick="runAI('mortgage')">Ask AI a mortgage question</button>
+        </div>
+        <div class="ai-box" id="ai-mortgage"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MONTHLY REVIEW -->
+  <section id="sec-review">
+    <div class="grid2">
+      <div class="card">
+        <div class="card-title">Monthly relationship review</div>
+        <div class="accent-blue" id="rev-q-text">Looking back on this month, what moment brought you closest together?</div>
+        <div class="btns" style="margin-bottom:14px;">
+          <button class="btn" onclick="nextRevQ()">Next question</button>
+        </div>
+        <div class="divider"></div>
+        <div class="card-title">Rate this month</div>
+        <div class="prow">
+          <div class="avatar av-a">AL</div>
+          <div class="swrap">
+            <div class="slbl"><span>Ally</span><span id="rev-a">7</span></div>
+            <input type="range" min="1" max="10" value="7" oninput="document.getElementById('rev-a').textContent=this.value">
+          </div>
+        </div>
+        <div class="prow">
+          <div class="avatar av-b">LU</div>
+          <div class="swrap">
+            <div class="slbl"><span>Ludjero</span><span id="rev-b">7</span></div>
+            <input type="range" min="1" max="10" value="7" id="rev-sl-b" oninput="document.getElementById('rev-b').textContent=this.value">
+          </div>
+        </div>
+        <div style="margin-top:12px;">
+          <button class="btn btn-blue" onclick="runAI('review')">Generate monthly reflection</button>
+        </div>
+        <div class="ai-box" id="ai-review"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Intentions for next month</div>
+        <div class="rowin">
+          <input type="text" id="int-in" placeholder="Something to focus on...">
+          <button class="btn btn-blue" onclick="addIntentionItem()">Add</button>
+        </div>
+        <div id="int-list">
+          <div class="list-item"><div class="dot-a"></div>More phone-free evenings</div>
+          <div class="list-item"><div class="dot-b"></div>Weekly walk together</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+<script>
+var apiKey = localStorage.getItem('al_dashboard_key') || '';
+if (apiKey) {
+  document.getElementById('key-status').textContent = 'API key saved and ready.';
+  document.getElementById('api-key-input').value = 'sk-ant-...saved';
+}
+function saveKey() {
+  var k = document.getElementById('api-key-input').value.trim();
+  if (!k || k === 'sk-ant-...saved') return;
+  localStorage.setItem('al_dashboard_key', k);
+  apiKey = k;
+  document.getElementById('key-status').textContent = 'API key saved!';
+  document.getElementById('api-key-input').value = 'sk-ant-...saved';
+}
+
+var dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+var monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+var now = new Date();
+document.getElementById('the-date').textContent = dayNames[now.getDay()] + ', ' + monthNames[now.getMonth()] + ' ' + now.getDate();
+
+var sd = document.getElementById('streak-dots');
+for (var i = 0; i < 7; i++) {
+  var d = document.createElement('div');
+  d.className = i < 5 ? 'sd on' : 'sd';
+  sd.appendChild(d);
+}
+
+function showSection(id, el) {
+  document.querySelectorAll('section').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('sec-' + id).classList.add('active');
+  document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+  el.classList.add('active');
+}
+
+function updateMood() {
+  var a = parseInt(document.getElementById('sl-a').value);
+  var b = parseInt(document.getElementById('sl-b').value);
+  document.getElementById('val-a').textContent = a;
+  document.getElementById('val-b').textContent = b;
+  document.getElementById('avg-m').textContent = Math.round((a + b) / 2);
+}
+
+var intentions = [
+  'How can we each show up a little better for each other today, even in one small way?',
+  "What's one way to make your partner feel appreciated before the day ends?",
+  'Choose one moment today to be fully present together, no phones.',
+  'What would make today feel like a team effort?',
+  'Say one thing out loud today that you usually only think.'
+];
+var iIdx = 0;
+function nextIntention() { iIdx = (iIdx + 1) % intentions.length; document.getElementById('intention-text').textContent = intentions[iIdx]; }
+
+var wqs = [
+  "What's one thing your partner did this week that made you feel seen?",
+  'Was there a moment this week where you could have connected better?',
+  'What are you each looking forward to this week?',
+  'How well did you handle stress together this week?',
+  "What's one small thing you'd love more of from your partner?",
+  'When did you feel most in sync this week?',
+  "Is there anything unsaid that you'd like to share?",
+  'What made you laugh or smile together recently?'
+];
+var wqIdx = 0;
+function nextWQ() { wqIdx = (wqIdx + 1) % wqs.length; document.getElementById('wq-text').textContent = wqs[wqIdx]; }
+
+var wints = [
+  'How can we be a better team this week, even in one small way?',
+  "What's one way to make your partner feel appreciated before the week ends?",
+  'Choose one evening this week to be fully present together.',
+  'What would make this week feel like a shared adventure?',
+  'Say one thing out loud this week that you usually only think.'
+];
+var wiIdx = 0;
+function nextWInt() { wiIdx = (wiIdx + 1) % wints.length; document.getElementById('wint-text').textContent = wints[wiIdx]; }
+
+var finQs = [
+  'Are we on the same page about our savings goals this month?',
+  'Did any unexpected expenses catch us off guard?',
+  'Are there recurring costs we should reconsider?',
+  'How are we feeling about our mortgage savings progress?',
+  "Is there a money conversation we've been avoiding?",
+  "What's one financial win we can celebrate?"
+];
+var fqIdx = 0;
+function nextFinQ() { fqIdx = (fqIdx + 1) % finQs.length; document.getElementById('fin-q-text').textContent = finQs[fqIdx]; }
+
+var revQs = [
+  'Looking back on this month, what moment brought you closest together?',
+  "What's one thing your partner did this month you want to remember?",
+  'Was there a recurring tension this month worth talking about?',
+  'What do you each want to do differently next month?',
+  'How well did you support each other through challenges?',
+  'What are you most proud of as a couple this month?'
+];
+var rqIdx = 0;
+function nextRevQ() { rqIdx = (rqIdx + 1) % revQs.length; document.getElementById('rev-q-text').textContent = revQs[rqIdx]; }
+
+function addGrat() {
+  var v = document.getElementById('grat-in').value.trim(); if (!v) return;
+  var who = document.getElementById('grat-who').value;
+  var el = document.createElement('div'); el.className = 'list-item';
+  el.innerHTML = '<div class="dot-' + who + '"></div><div><div>' + v + '</div><div class="meta">' + (who === 'a' ? 'Ally' : 'Ludjero') + ' &middot; just now</div></div>';
+  var list = document.getElementById('grat-list');
+  list.insertBefore(el, list.firstChild);
+  document.getElementById('grat-in').value = '';
+  document.getElementById('grat-count').textContent = parseInt(document.getElementById('grat-count').textContent) + 1;
+}
+
+function addWin() {
+  var v = document.getElementById('win-in').value.trim(); if (!v) return;
+  var el = document.createElement('div'); el.className = 'list-item';
+  el.innerHTML = '<div class="dot-n"></div>' + v;
+  var list = document.getElementById('win-list');
+  list.insertBefore(el, list.firstChild);
+  document.getElementById('win-in').value = '';
+  document.getElementById('win-count').textContent = parseInt(document.getElementById('win-count').textContent) + 1;
+}
+
+function addGoal() {
+  var n = document.getElementById('goal-name').value.trim();
+  var p = parseInt(document.getElementById('goal-pct-in').value) || 0;
+  if (!n) return;
+  var el = document.createElement('div'); el.className = 'goal-row';
+  el.innerHTML = '<div class="goal-name">' + n + '</div><div class="goal-bar-wrap"><div class="goal-bar" style="width:' + p + '%"></div></div><div class="goal-pct">' + p + '%</div>';
+  document.getElementById('goal-list').appendChild(el);
+  document.getElementById('goal-name').value = '';
+  document.getElementById('goal-pct-in').value = '';
+}
+
+function addBucket() {
+  var v = document.getElementById('bucket-in').value.trim(); if (!v) return;
+  var el = document.createElement('div'); el.className = 'list-item';
+  el.innerHTML = '<div class="dot-a"></div>' + v;
+  document.getElementById('bucket-list').appendChild(el);
+  document.getElementById('bucket-in').value = '';
+}
+
+function planDate() {
+  var when = document.getElementById('date-when').value;
+  var loc = document.getElementById('date-loc').value || 'TBD';
+  var el = document.createElement('div'); el.className = 'list-item';
+  var d = when ? new Date(when + 'T12:00:00').toLocaleDateString('en-US', {month:'short', day:'numeric'}) : 'TBD';
+  el.innerHTML = '<div class="dot-b"></div>' + d + ' &mdash; ' + loc;
+  document.getElementById('saved-dates').appendChild(el);
+}
+
+function calcFin() {
+  var inc = parseFloat(document.getElementById('f-income').value) || 0;
+  var exp = parseFloat(document.getElementById('f-exp').value) || 0;
+  var save = inc - exp;
+  document.getElementById('fin-income').textContent = '$' + inc.toLocaleString();
+  document.getElementById('fin-exp').textContent = '$' + exp.toLocaleString();
+  document.getElementById('fin-save').textContent = (save >= 0 ? '+ ' : '') + '$' + Math.abs(save).toLocaleString();
+  document.getElementById('fin-save').style.color = save >= 0 ? 'var(--green)' : 'var(--red)';
+}
+
+var mortgageStep = 1;
+function advanceMortgage() {
+  var steps = document.querySelectorAll('.ms');
+  if (mortgageStep >= steps.length) return;
+  var cur = steps[mortgageStep].querySelector('.ms-circle');
+  cur.className = 'ms-circle ms-done'; cur.innerHTML = '&#10003;';
+  steps[mortgageStep].querySelector('.meta').textContent = 'Completed';
+  mortgageStep++;
+  if (mortgageStep < steps.length) {
+    var nxt = steps[mortgageStep].querySelector('.ms-circle');
+    nxt.className = 'ms-circle ms-active';
+    steps[mortgageStep].querySelector('.meta').textContent = 'In progress';
+  }
+}
+
+function addMtgNote() {
+  var v = document.getElementById('mtg-in').value.trim(); if (!v) return;
+  var el = document.createElement('div'); el.className = 'list-item';
+  el.innerHTML = '<div class="dot-a"></div>' + v;
+  document.getElementById('mtg-notes').appendChild(el);
+  document.getElementById('mtg-in').value = '';
+}
+
+function addIntentionItem() {
+  var v = document.getElementById('int-in').value.trim(); if (!v) return;
+  var el = document.createElement('div'); el.className = 'list-item';
+  el.innerHTML = '<div class="dot-b"></div>' + v;
+  document.getElementById('int-list').appendChild(el);
+  document.getElementById('int-in').value = '';
+}
+
+function getPrompt(type) {
+  var a = document.getElementById('sl-a') ? document.getElementById('sl-a').value : '7';
+  var b = document.getElementById('sl-b') ? document.getElementById('sl-b').value : '7';
+  var tags = [];
+  document.querySelectorAll('.tag.on').forEach(function(t) { tags.push(t.textContent); });
+  var tagStr = tags.length ? tags.join(', ') : 'unspecified';
+  if (type === 'daily') return 'You are a warm relationship coach for a couple named Ally and Ludjero. Ally mood: ' + a + '/10. Ludjero mood: ' + b + '/10. Feelings: ' + tagStr + '. Write ONE warm specific conversation starter (2-4 sentences) to help them connect tonight. Human and specific, not generic. No bullet points.';
+  if (type === 'weekly') return 'You are a warm relationship coach. Help Ally and Ludjero reflect on: "' + wqs[wqIdx] + '" Give 2-3 gentle follow-up prompts. Warm and conversational.';
+  if (type === 'goals') return 'You are a friendly financial coach for Ally and Ludjero working toward: emergency fund 65%, buying a home 30%, travel fund 50%, new furniture 20%. Give 2-3 warm practical suggestions for progress this month. Flowing sentences, no bullet points.';
+  if (type === 'date') { var loc = document.getElementById('date-loc').value || 'anywhere nearby'; return 'You are a fun date night planner for Ally and Ludjero. Vibe/location: ' + loc + '. Suggest ONE creative specific date night idea with detail on why it would be special. 3-4 sentences, warm and enthusiastic.'; }
+  if (type === 'finance') return 'You are a calm financial coach for Ally and Ludjero who are saving to buy a home. Give one warm practical prompt for their monthly financial check-in. 2-3 sentences, encouraging. No bullet points.';
+  if (type === 'mortgage') return 'You are a knowledgeable calm mortgage advisor for Ally and Ludjero who are currently house hunting for their first home. Give 2-3 practical reassuring tips. Friendly and clear. No bullet points.';
+  if (type === 'review') { var ra = document.getElementById('rev-a').textContent; var rb = document.getElementById('rev-b').textContent; return 'You are a warm relationship coach. Ally rated their month ' + ra + '/10 and Ludjero rated theirs ' + rb + '/10. Write a short monthly reflection (3-4 sentences) that acknowledges the month, celebrates their effort, and offers one gentle intention for next month.'; }
+  return '';
+}
+
+async function runAI(type) {
+  var boxId = 'ai-' + type;
+  var box = document.getElementById(boxId);
+  if (!box) return;
+  box.style.display = 'block';
+  if (!apiKey) { box.innerHTML = '<span class="ai-loading">Please save your Anthropic API key at the top of the page to use AI features.</span>'; return; }
+  box.innerHTML = '<span class="ai-loading">Thinking...</span>';
+  try {
+    var resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: getPrompt(type) }]
+      })
+    });
+    var data = await resp.json();
+    if (data.error) { box.textContent = 'Error: ' + data.error.message; return; }
+    var text = '';
+    if (data.content) {
+      for (var i = 0; i < data.content.length; i++) {
+        if (data.content[i].type === 'text') { text = data.content[i].text; break; }
+      }
+    }
+    box.textContent = text || 'No response. Please try again.';
+  } catch(e) {
+    box.textContent = 'Something went wrong. Check your API key and internet connection.';
+  }
+}
+</script>
+</body>
+</html>
